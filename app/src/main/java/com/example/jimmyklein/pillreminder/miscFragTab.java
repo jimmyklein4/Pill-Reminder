@@ -21,8 +21,6 @@ public class miscFragTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.misc_fragment, container, false);
-        TextView tv = (TextView) v.findViewById(R.id.text);
-        tv.setText(this.getTag() + " Content");
         return v;
     }
 }

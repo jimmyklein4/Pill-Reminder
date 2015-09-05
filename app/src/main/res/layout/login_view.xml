@@ -14,7 +14,7 @@
         android:id="@+id/textView" />
 
     <EditText
-        android:layout_width="352dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
@@ -35,8 +35,8 @@
         android:layout_gravity="right" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="164dp"
+        android:layout_height="54dp"
         android:onClick="login"
         android:id="@+id/button"
         android:background="@mipmap/login" />
