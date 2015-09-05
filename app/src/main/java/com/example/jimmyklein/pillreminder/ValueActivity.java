@@ -15,24 +15,14 @@ import io.particle.android.sdk.cloud.ParticleDevice;
 import io.particle.android.sdk.utils.Async;
 import io.particle.android.sdk.utils.Toaster;
 
-public class ValueActivity extends AppCompatActivity {
+public class ValueActivity {
 
     private static final String ARG_VALUE = "ARG_VALUE";
     private static final String ARG_DEVICEID = "ARG_DEVICEID";
 
     private TextView tv;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_value);
-        tv = (TextView) findViewById(R.id.value);
-        tv.setText(String.valueOf(getIntent().getIntExtra(ARG_VALUE, 0)));
-
-        findViewById(R.id.refresh_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //...
+  public void value(){
                 // Do network work on background thread
                 Async.executeAsync(ParticleCloud.get(ValueActivity.this), new Async.ApiWork<ParticleCloud, Integer>() {
                     @Override
