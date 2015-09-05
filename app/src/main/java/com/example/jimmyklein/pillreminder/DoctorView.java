@@ -84,31 +84,6 @@ public class DoctorView extends FragmentActivity {
         // TODO: some error handling
     }
 
-    public void updatePatients(List<String> patients) {
-        // TODO: update the listing of patients
-        // is it stored as a List inside of DoctorView?
-        // who knows
-    }
-
-    public void getPatients() {
-        DataHandler data = DataHandler.getInstance();
-        Firebase docref = new Firebase(data.dataURI + "doctors/" + data.getUserID() + "/patients/");
-        docref.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> patients = new ArrayList<>();
-                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    patients.add(snapshot.getValue(String.class));
-                }
-                updatePatients(patients);
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-                displayError("Cancelled request");
-            }
-        });
-    }
 
     public void populateSchedule(final String patient) {
         DataHandler data = DataHandler.getInstance();
