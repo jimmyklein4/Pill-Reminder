@@ -20,6 +20,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.util.List;
+import java.util.ArrayList;
 
 
 /**
@@ -94,9 +95,9 @@ public class DoctorView extends Activity {
         docref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<String> patients = LinkedList<String>();
+                List<String> patients = new ArrayList<>();
                 for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
-                    patients.add(snapshot.getValue());
+                    patients.add(snapshot.getValue(String.class));
                 }
                 updatePatients(patients);
             }
@@ -105,23 +106,23 @@ public class DoctorView extends Activity {
             public void onCancelled(FirebaseError firebaseError) {
                 displayError("Cancelled request");
             }
-        })
+        });
     }
 
-    public void populateSchedule(String patient) {
+    public void populateSchedule(final String patient) {
         DataHandler data = DataHandler.getInstance();
-        Firebase patref = new Firebase(data.dataURI + "patients/" + patient);
+        final Firebase patref = new Firebase(data.dataURI + "patients/" + patient);
         patref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println(patref.child("schedule"));
-                List<String> schedule = LinkedList<String> ();
+                List<String> schedule = new ArrayList<> ();
                 if (dataSnapshot.getValue() == null) {
                     displayError("Patient " + patient + " doesn't exist");
                     return;
                 }
                 for (DataSnapshot snapshot: dataSnapshot.child("schedule").getChildren()) {
-                    schedule.add(snapshot.getValue());
+                    schedule.add(snapshot.getValue(String.class));
                 }
                 // TODO: how is schedule populated?
             }
