@@ -1,4 +1,4 @@
-package com.example.jimmyklein.pillreminder;
+/*package com.example.jimmyklein.pillreminder;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -94,3 +94,4 @@ public class LoginActivity  {
     }
 
 }
+*/
