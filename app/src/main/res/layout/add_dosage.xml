@@ -25,6 +25,7 @@
             android:background="@android:drawable/btn_dropdown"
             android:spinnerMode="dropdown" />
 
+
         <TimePicker
             android:layout_width="wrap_content"
             android:layout_height="400dp"
@@ -37,6 +38,13 @@
             android:layout_height="450dp"
             android:id="@+id/datePicker"
             />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:id="@+id/button2"
+            android:onClick="submitDosage"/>
     </LinearLayout>>
     </ScrollView>>
 </LinearLayout>

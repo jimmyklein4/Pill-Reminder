@@ -6,7 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import android.widget.TimePicker;
+import android.app.Activity;
 /**
  * Created by Waqas on 9/5/2015.
  */
@@ -23,4 +24,6 @@ public class miscFragTab extends Fragment {
         View v = inflater.inflate(R.layout.add_dosage, container, false);
         return v;
     }
+
+
 }
