@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.MenuInflater;
+
 import android.content.Intent;
 
 /**
@@ -14,6 +16,7 @@ import android.content.Intent;
 public class DoctorInformation extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doctor_information);
     }
@@ -21,8 +24,11 @@ public class DoctorInformation extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+        //MenuInflater mnuInflater = getSupportMenuInflater();
+        //inflater.inflate(R.menu.main_activity_actions, menu);
+
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -34,7 +40,7 @@ public class DoctorInformation extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            System.out.println("setting");
         }
 
         return super.onOptionsItemSelected(item);
@@ -46,6 +52,8 @@ public class DoctorInformation extends Activity {
         //startActivity(i);
 
     }
+
+
 
 
 }

@@ -6,6 +6,7 @@ package com.example.jimmyklein.pillreminder;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +37,11 @@ public class PatientLogIn extends Activity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }if (id == R.id.doctor_info){
+            //start doctor information intent
+            Intent i = new Intent(PatientLogIn.this, DoctorInformation.class);
+            startActivity(i);
+
         }
 
         return super.onOptionsItemSelected(item);
