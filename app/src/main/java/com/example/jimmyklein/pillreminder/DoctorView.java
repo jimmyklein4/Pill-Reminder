@@ -16,6 +16,9 @@ import android.view.View;
 import android.view.MenuInflater;
 
 import android.content.Intent;
+import android.widget.DatePicker;
+import android.widget.Spinner;
+import android.widget.TimePicker;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -86,6 +89,18 @@ public class DoctorView extends FragmentActivity {
 
     public void displayError(String error) {
         // TODO: some error handling
+    }
+
+    public void submitDosage (View view){
+        Spinner patient = (Spinner) findViewById(R.id.spinner1);
+        TimePicker dosage_time = (TimePicker) findViewById(R.id.timePicker);
+        DatePicker dosage_date = (DatePicker) findViewById(R.id.datePicker);
+        System.out.println(dosage_time.getCurrentHour()+":"+dosage_time.getCurrentMinute());
+        String time = dosage_time.getCurrentHour()+":"+dosage_time.getCurrentMinute();
+        String date = (dosage_date.getMonth()+1) + "/" + dosage_date.getDayOfMonth()+"/"+dosage_date.getYear();
+        String patientString = (patient != null) ? patient.getSelectedItem().toString(): "[null]";
+        System.out.println(patientString+" "+time+" "+date);
+
     }
 
 
