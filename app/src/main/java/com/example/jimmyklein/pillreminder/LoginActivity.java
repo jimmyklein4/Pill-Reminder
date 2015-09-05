@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -56,7 +57,7 @@ public class LoginActivity extends Activity {
         patref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue() == null) {
+                if (dataSnapshot.getValue() == null) {
                     displayError("Username not found");
                 } else {
                     System.out.println("logging in as pat " + uid);
@@ -99,11 +100,15 @@ public class LoginActivity extends Activity {
 
     public void login(View view) {
         // TODO: actually get text information here instead of string username
+
         EditText i =  (EditText) findViewById(R.id.editText);
         String result = i.getText().toString();
-
-        System.out.println("Trying to login with " + result);
-        tryDocLogin(result, "");
+        if( !(android.util.Patterns.EMAIL_ADDRESS.matcher(result).matches()) ){
+            Toast.makeText(LoginActivity.this,"please enter a valid email!", Toast.LENGTH_SHORT).show();
+        }else {
+            System.out.println("Trying to login with " + result);
+            tryDocLogin(result, "");
+        }
     }
 
     public void moveToPatientPage() {
