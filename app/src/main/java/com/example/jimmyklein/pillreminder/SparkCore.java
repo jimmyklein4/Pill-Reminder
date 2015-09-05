@@ -25,7 +25,7 @@ public class SparkCore extends ActionBarActivity {
     Button buttonLogin;
 
     String email = "wikkii@msn.com";
-    String password = ""; //will put my password on here but not on git
+    String password = "wikki123"; //will put my password on here but not on git
     String TOKEN = "";
     String API_URL = "";
 
@@ -88,7 +88,7 @@ public class SparkCore extends ActionBarActivity {
             @Override
             public void onFailure(ParticleCloudException exception) {
                 Log.e("Fail", String.valueOf(exception));
-                Toaster.l(SparkCore.this, "Wrong shit bitch, get it right son");
+                Toaster.l(SparkCore.this, "Wrong shit son");
             }
         });
 

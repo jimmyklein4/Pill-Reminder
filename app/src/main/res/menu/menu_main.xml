@@ -6,7 +6,6 @@
         android:orderInCategory="100" android:showAsAction="never" />
     <item android:id="@+id/doctor_patient_add" android:title="Add Patient"
         android:orderInCategory="100" android:showAsAction="never" />
-
-
-
+    <item android:id="@+id/spark_Core" android:title="Spark Core"
+        android:orderInCategory="100" android:showAsAction="never" />
 </menu>

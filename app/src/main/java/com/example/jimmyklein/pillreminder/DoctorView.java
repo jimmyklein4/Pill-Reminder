@@ -84,7 +84,10 @@ public class DoctorView extends FragmentActivity {
             //start doctor information intent
             Intent i = new Intent(DoctorView.this, DoctorViewAddPatient.class);
             startActivity(i);
-
+        }
+        if (id == R.id.spark_Core){
+            Intent intent = new Intent(DoctorView.this, SparkCore.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);
