@@ -55,7 +55,7 @@ public class DoctorView extends FragmentActivity {
                 alertFragTab.class, null);
 
         mTabHost.addTab(
-                mTabHost.newTabSpec("Misc").setIndicator("Misc", null),
+                mTabHost.newTabSpec("Dosage").setIndicator("Dosage", null),
                 miscFragTab.class, null);
 
         //Color change for the tabs
