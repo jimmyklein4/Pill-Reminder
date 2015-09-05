@@ -20,6 +20,11 @@
         <activity
             android:name=".PatientLogIn"
             android:label="@string/app_name" >
+        </activity>
+
+        <activity
+            android:name=".DoctorInformation"
+            android:label="Doctor Information" >
 
         </activity>
     </application>
