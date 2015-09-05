@@ -49,7 +49,7 @@ public class DoctorView extends Activity {
 
         //patientTab.setTabListener(new ActionBar.TabListener(patientFragTab));
 
-        actionBar.addTab(patientTab);
+        //actionBar.addTab(patientTab);
     }
 
     @Override

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.MenuInflater;
 
 import android.content.Intent;
+import android.widget.EditText;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -48,6 +49,15 @@ public class DoctorViewAddPatient extends Activity{
         return super.onOptionsItemSelected(item);
     }
 
+
+    public void addPatientClicked(View view){
+        EditText email = (EditText)findViewById(R.id.editText3);
+        EditText name = (EditText)findViewById(R.id.editText4);
+
+        String record  = "email:" + email.getText().toString() + " name:" + name.getText().toString();
+        addPatient(record);
+
+    }
     public void addPatient(final String patientname) {
         DataHandler data = DataHandler.getInstance();
         Firebase docref = new Firebase(data.dataURI + "doctors/" + data.getUserID() + "/patients/");

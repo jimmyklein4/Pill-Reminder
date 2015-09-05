@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
+import android.widget.EditText;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -98,8 +99,11 @@ public class DoctorPatientActivity extends Activity {
     public void login(View view) {
         // TODO: actually get text information here instead of string username
         String username = "pat1";
-        System.out.println("Trying to login with " + username);
-        tryDocLogin(username, "");
+        EditText i =  (EditText) findViewById(R.id.editText);
+        String result = i.getText().toString();
+
+        System.out.println("Trying to login with " + result);
+        tryDocLogin(result, "");
     }
 
     public void moveToPatientPage() {
