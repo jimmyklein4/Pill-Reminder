@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.app.Activity;
@@ -22,6 +24,11 @@ public class miscFragTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.add_dosage, container, false);
+        Spinner miscpat = (Spinner)v.findViewById(R.id.spinner1);
+        String[] patients = {"sue@some.com", "bob@none.co", "gregg@rad.biz"};
+        ArrayAdapter<String> mparrad = new ArrayAdapter<>(v.getContext(), android.R.layout.simple_spinner_item, patients);
+        //mparrad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        miscpat.setAdapter(mparrad);
         return v;
     }
 
