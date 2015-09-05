@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,30 +28,29 @@ import java.util.ArrayList;
 /**
  * Created by ramanjit on 9/5/2015.
  */
-public class DoctorView extends Activity {
+public class DoctorView extends FragmentActivity {
 
-    ActionBar.Tab patientTab, alertTab, miscTab;
-    //Fragment patientFragTab = new patientFragTab();
-    //Fragment alertFragTab = new alertFragTab();
-    //Fragment miscFragTab = new miscFragTab();
-
+    private FragmentTabHost mTabHost;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doctorview);
 
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayShowTitleEnabled(false);
-        actionBar.setDisplayShowHomeEnabled(false);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        mTabHost = (FragmentTabHost) findViewById(android.R.id.tabhost);
+        mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
-        patientTab = actionBar.newTab();
-        alertTab = actionBar.newTab();
-        miscTab = actionBar.newTab();
+        mTabHost.addTab(
+                mTabHost.newTabSpec("Patient").setIndicator("Patient", null),
+                patientFragTab.class, null);
 
-        //patientTab.setTabListener(new ActionBar.TabListener(patientFragTab));
+        mTabHost.addTab(
+                mTabHost.newTabSpec("Alert").setIndicator("Alert", null),
+                alertFragTab.class, null);
 
-        //actionBar.addTab(patientTab);
+        mTabHost.addTab(
+                mTabHost.newTabSpec("Misc").setIndicator("Misc", null),
+                miscFragTab.class, null);
+
     }
 
     @Override
