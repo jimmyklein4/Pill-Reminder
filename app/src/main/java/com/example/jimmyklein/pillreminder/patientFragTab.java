@@ -5,12 +5,14 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 /**
  * Created by Waqas on 9/5/2015.
  */
 public class patientFragTab extends Fragment {
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -24,5 +26,7 @@ public class patientFragTab extends Fragment {
         TextView tv = (TextView) v.findViewById(R.id.text);
         tv.setText(this.getTag() + " Content");
         return v;
+
+
     }
 }
