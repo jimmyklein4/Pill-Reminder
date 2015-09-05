@@ -59,6 +59,7 @@ public class LoginActivity extends Activity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null) {
                     displayError("Username not found");
+                    Toast.makeText(LoginActivity.this, "User not found!", Toast.LENGTH_SHORT).show();
                 } else {
                     System.out.println("logging in as pat " + uid);
                     DataHandler.getInstance().setLogin(uid, false);
