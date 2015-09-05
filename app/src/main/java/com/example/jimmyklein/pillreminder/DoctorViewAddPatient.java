@@ -56,7 +56,7 @@ public class DoctorViewAddPatient extends Activity{
         EditText email = (EditText)findViewById(R.id.editText3);
         EditText name = (EditText)findViewById(R.id.editText4);
         System.out.println(email.getText().toString());
-        if( !(android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches())){
+        if( !(android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) ){
             System.out.println("please enter a valid email");
             Toast.makeText(DoctorViewAddPatient.this, "Please enter a valid email!", Toast.LENGTH_SHORT).show();
 
