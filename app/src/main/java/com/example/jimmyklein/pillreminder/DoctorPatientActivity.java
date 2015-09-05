@@ -7,7 +7,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 public class DoctorPatientActivity extends Activity {
 
@@ -40,10 +43,66 @@ public class DoctorPatientActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void moveToPatientPage(View view) {
-        System.out.println("fdgfdgdf");
+    public void displayError(String error) {
+        return;
+    }
+
+    public void tryPatientLogin(final String username, final String password) {
+        DataHandler data = DataHandler.getInstance();
+        System.out.println("in tryPatientLogin: " + username + ", " + password);
+        Firebase patref = new Firebase(data.dataURI + "patients/" + username);
+        patref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() == null) {
+                    displayError("Username not found");
+                } else {
+                    System.out.println("logging in as pat " + username);
+                    DataHandler.getInstance().setLogin(username, false);
+                    moveToPatientPage();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                displayError("Login request cancelled");
+            }
+        });
+    }
+
+    public void tryDocLogin(final String username, final String password) {
+        DataHandler data = DataHandler.getInstance();
+        System.out.println("in tryDocLogin: " + username + ", " + password);
+        Firebase docref = new Firebase(data.dataURI + "doctors/" + username);
+        docref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println("tryDocLogin onDataChange");
+                if (dataSnapshot.getValue() == null) {
+                    tryPatientLogin(username, password);
+                } else {
+                    System.out.println("logging in as doc " + username);
+                    DataHandler.getInstance().setLogin(username, true);
+                    moveToPatientPage();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                displayError("Login request cancelled");
+            }
+        });
+    }
+
+    public void login(View view) {
+        // TODO: actually get text information here instead of string username
+        String username = "pat1";
+        System.out.println("Trying to login with " + username);
+        tryDocLogin(username, "");
+    }
+
+    public void moveToPatientPage() {
         Intent i = new Intent( DoctorPatientActivity.this, PatientLogIn.class);
         startActivity(i);
-
     }
 }
