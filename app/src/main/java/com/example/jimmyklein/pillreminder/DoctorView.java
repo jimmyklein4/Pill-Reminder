@@ -5,6 +5,7 @@ package com.example.jimmyklein.pillreminder;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
@@ -50,6 +51,9 @@ public class DoctorView extends FragmentActivity {
         mTabHost.addTab(
                 mTabHost.newTabSpec("Misc").setIndicator("Misc", null),
                 miscFragTab.class, null);
+
+        //Color change for the tabs
+        //mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.rgb(22, 240, 214));
 
     }
 
