@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 import android.view.MenuInflater;
 
 import android.content.Intent;
@@ -54,8 +55,12 @@ public class DoctorViewAddPatient extends Activity{
     public void addPatientClicked(View view){
         EditText email = (EditText)findViewById(R.id.editText3);
         EditText name = (EditText)findViewById(R.id.editText4);
+        if((android.util.Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches())){
+            System.out.println("please enter a valid email");
 
-        addPatient(email.getText().toString(), name.getText().toString());
+        }else {
+            addPatient(email.getText().toString(), name.getText().toString());
+        }
     }
 
     public void addPatient(final String email, final String patientname) {
