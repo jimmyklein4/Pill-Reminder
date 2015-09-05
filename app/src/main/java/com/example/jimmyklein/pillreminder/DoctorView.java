@@ -2,20 +2,13 @@ package com.example.jimmyklein.pillreminder;
 
 
 
-import android.app.ActionBar;
-import android.app.Activity;
-import android.app.Fragment;
-import android.graphics.Color;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.MenuInflater;
-
-import android.content.Intent;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -26,9 +19,9 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-import java.util.List;
 import java.util.ArrayList;
 import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * Created by ramanjit on 9/5/2015.

@@ -37,13 +37,19 @@ public class patientFragTab extends Fragment {
         ArrayAdapter<String> arradapter = new ArrayAdapter<String>(
                 v.getContext(),
                 android.R.layout.simple_list_item_1,
-                patients
+                DataHandler.getInstance().getPatients()
         );
         lv.setAdapter(arradapter);
         return v;
     }
 
     public void getPatients() {
+        for (String pat : DataHandler.getInstance().getPatients()) {
+            patients.add(pat);
+        }
+    }
+
+    public void getFirePatients() {
         final DataHandler data = DataHandler.getInstance();
         Firebase patref = new Firebase(data.dataURI + "doctors/" + data.getUserID() + "/patients/");
         patref.addListenerForSingleValueEvent(new ValueEventListener() {

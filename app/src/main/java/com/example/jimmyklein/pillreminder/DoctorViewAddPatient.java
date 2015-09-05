@@ -66,6 +66,10 @@ public class DoctorViewAddPatient extends Activity{
     }
 
     public void addPatient(final String email, final String patientname) {
+        DataHandler.getInstance().addPatient(patientname, email);
+    }
+
+    public void addFirePatient(final String email, final String patientname) {
         System.out.println("email: " + email + " name: " + patientname);
         DataHandler data = DataHandler.getInstance();
         Firebase docref = new Firebase(data.dataURI + "doctors/" + data.getUserID() + "/patients/");
