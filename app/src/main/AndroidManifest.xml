@@ -27,6 +27,19 @@
             android:label="Doctor Information" >
 
         </activity>
+
+        <activity
+            android:name=".DoctorView"
+            android:label="Doctor Page" >
+
+        </activity>
+
+
+        <activity
+            android:name=".DoctorViewAddPatient"
+            android:label="Add Patient" >
+
+        </activity>
     </application>
 
 </manifest>
