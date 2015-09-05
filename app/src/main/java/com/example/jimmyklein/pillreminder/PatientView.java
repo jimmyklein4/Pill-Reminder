@@ -10,14 +10,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-public class PatientLogIn extends Activity {
+
+public class PatientView extends Activity {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.patientlogin);
+        setContentView(R.layout.patient_view);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class PatientLogIn extends Activity {
             return true;
         }if (id == R.id.doctor_info){
             //start doctor information intent
-            Intent i = new Intent(PatientLogIn.this, DoctorInformation.class);
+            Intent i = new Intent(PatientView.this, PatientDoctorInformation.class);
             startActivity(i);
 
         }

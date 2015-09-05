@@ -1,97 +1,118 @@
-/*package com.example.jimmyklein.pillreminder;
+package com.example.jimmyklein.pillreminder;
 
-import android.content.Intent;
-import android.os.AsyncTask;
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.content.Intent;
 import android.widget.EditText;
 
-import java.io.IOException;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
-import io.particle.android.sdk.cloud.ParticleCloud;
-import io.particle.android.sdk.cloud.ParticleCloudException;
-import io.particle.android.sdk.cloud.ParticleDevice;
-import io.particle.android.sdk.utils.Async;
-import io.particle.android.sdk.utils.Toaster;
+public class LoginActivity extends Activity {
 
-public class LoginActivity  {
-
-    String email = "wikkii@msn.com";
-    String password = "wikki123";
-
-    public void login(){
-                        // Don't:
-                        AsyncTask task = new AsyncTask() {
-                            @Override
-                            protected Object doInBackground(Object[] params) {
-                                try {
-                                    ParticleCloud.get(LoginActivity.this).logIn(email, password);
-
-                                } catch (final ParticleCloudException e) {
-                                    Runnable mainThread = new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            Toaster.l(LoginActivity.this, e.getBestMessage());
-                                            e.printStackTrace();
-                                            Log.d("info", e.getBestMessage());
-//                                            Log.d("info", e.getCause().toString());
-                                        }
-                                    };
-
-                                }
-
-                                return null;
-                            }
-
-                        };
-//                        task.execute();
-
-                        //-------
-
-                        // DO!:
-                        Async.executeAsync(ParticleCloud.get(v.getContext()), new Async.ApiWork<ParticleCloud, Integer>() {
-
-                            private ParticleDevice mDevice;
-
-                            @Override
-                            public Integer callApi(ParticleCloud sparkCloud) throws ParticleCloudException, IOException {
-                                sparkCloud.logIn(email, password);
-                                sparkCloud.getDevices();
-                                mDevice = sparkCloud.getDevice("1f0034000747343232361234");
-                                Integer variable;
-                                try {
-                                    variable = mDevice.getVariable("analogvalue");
-                                } catch (ParticleDevice.VariableDoesNotExistException e) {
-                                    Toaster.s(LoginActivity.this, "Error reading variable");
-                                    variable = -1;
-                                }
-                                return variable;
-
-                            }
-
-                            @Override
-                            public void onSuccess(Integer value) {
-                                Toaster.l(LoginActivity.this, "Logged in");
-                                Intent intent = ValueActivity.buildIntent(LoginActivity.this, value, mDevice.getID());
-                                startActivity(intent);
-                            }
-
-                            @Override
-                            public void onFailure(ParticleCloudException e) {
-                                Toaster.l(LoginActivity.this, e.getBestMessage());
-                                e.printStackTrace();
-                                Log.d("info", e.getBestMessage());
-                            }
-                        });
-
-
-                    }
-                }
-
-        );
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
+        setContentView(R.layout.login_view);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void displayError(String error) {
+        // TODO: display actual login error
+        return;
+    }
+
+    public void tryPatientLogin(final String username, final String password) {
+        DataHandler data = DataHandler.getInstance();
+        System.out.println("in tryPatientLogin: " + username + ", " + password);
+        Firebase patref = new Firebase(data.dataURI + "patients/" + username);
+        patref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue() == null) {
+                    displayError("Username not found");
+                } else {
+                    System.out.println("logging in as pat " + username);
+                    DataHandler.getInstance().setLogin(username, false);
+                    moveToPatientPage();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                displayError("Login request cancelled");
+            }
+        });
+    }
+
+    public void tryDocLogin(final String username, final String password) {
+        DataHandler data = DataHandler.getInstance();
+        System.out.println("in tryDocLogin: " + username + ", " + password);
+        Firebase docref = new Firebase(data.dataURI + "doctors/" + username);
+        docref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println("tryDocLogin onDataChange");
+                if (dataSnapshot.getValue() == null) {
+                    tryPatientLogin(username, password);
+                } else {
+                    System.out.println("logging in as doc " + username);
+                    DataHandler.getInstance().setLogin(username, true);
+                    moveToDoctorPage();
+                }
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                displayError("Login request cancelled");
+            }
+        });
+    }
+
+    public void login(View view) {
+        // TODO: actually get text information here instead of string username
+        String username = "pat1";
+        EditText i =  (EditText) findViewById(R.id.editText);
+        String result = i.getText().toString();
+
+        System.out.println("Trying to login with " + result);
+        tryDocLogin(result, "");
+    }
+
+    public void moveToPatientPage() {
+        Intent i = new Intent( LoginActivity.this, PatientView.class);
+        startActivity(i);
+    }
+
+    public void moveToDoctorPage() {
+        Intent i = new Intent( LoginActivity.this, DoctorView.class);
+        startActivity(i);
+    }
 }
-*/

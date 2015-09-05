@@ -24,6 +24,7 @@ public class DoctorViewAddPatient extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.doctorview_add_patient);
     }
 

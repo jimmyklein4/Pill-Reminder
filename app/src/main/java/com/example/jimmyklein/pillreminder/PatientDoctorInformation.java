@@ -6,19 +6,17 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.MenuInflater;
-
-import android.content.Intent;
 
 /**
  * Created by ramanjit on 9/5/2015.
+ * View for patient viewing the doctor's information
  */
-public class DoctorInformation extends Activity {
+public class PatientDoctorInformation extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doctor_information);
+        setContentView(R.layout.patient_doctor_information);
     }
 
     @Override
@@ -48,7 +46,7 @@ public class DoctorInformation extends Activity {
 
     public void moveToPatientPage(View view) {
         System.out.println("fdgfdgdf");
-        //Intent i = new Intent( DoctorPatientActivity.this, PatientLogIn.class);
+        //Intent i = new Intent( LoginActivity.this, PatientView.class);
         //startActivity(i);
 
     }
