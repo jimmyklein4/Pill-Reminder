@@ -10,12 +10,4 @@
         android:id="@+id/listView"
         android:layout_weight=".90" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:text="Add Item"
-        android:id="@+id/button2"
-        android:layout_gravity="bottom"
-        android:layout_weight=".10" />
 </LinearLayout>

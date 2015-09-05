@@ -2,7 +2,9 @@ package com.example.jimmyklein.pillreminder;
 
 
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,10 +19,28 @@ import android.content.Intent;
  */
 public class DoctorView extends Activity {
 
+    ActionBar.Tab patientTab, alertTab, miscTab;
+    //Fragment patientFragTab = new patientFragTab();
+    //Fragment alertFragTab = new alertFragTab();
+    //Fragment miscFragTab = new miscFragTab();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.doctorview);
+
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+
+        patientTab = actionBar.newTab();
+        alertTab = actionBar.newTab();
+        miscTab = actionBar.newTab();
+
+        //patientTab.setTabListener(new ActionBar.TabListener(patientFragTab));
+
+        actionBar.addTab(patientTab);
     }
 
     @Override
