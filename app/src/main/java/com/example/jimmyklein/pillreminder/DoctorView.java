@@ -6,12 +6,20 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.MenuInflater;
 
 import android.content.Intent;
+
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.util.List;
 
 
 /**
@@ -70,5 +78,58 @@ public class DoctorView extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void displayError(String error) {
+        // TODO: some error handling
+    }
 
+    public void updatePatients(List<String> patients) {
+        // TODO: update the listing of patients
+        // is it stored as a List inside of DoctorView?
+        // who knows
+    }
+
+    public void getPatients() {
+        DataHandler data = DataHandler.getInstance();
+        Firebase docref = new Firebase(data.dataURI + "doctors/" + data.getUserID() + "/patients/");
+        docref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> patients = LinkedList<String>();
+                for (DataSnapshot snapshot: dataSnapshot.getChildren()) {
+                    patients.add(snapshot.getValue());
+                }
+                updatePatients(patients);
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                displayError("Cancelled request");
+            }
+        })
+    }
+
+    public void populateSchedule(String patient) {
+        DataHandler data = DataHandler.getInstance();
+        Firebase patref = new Firebase(data.dataURI + "patients/" + patient);
+        patref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                System.out.println(patref.child("schedule"));
+                List<String> schedule = LinkedList<String> ();
+                if (dataSnapshot.getValue() == null) {
+                    displayError("Patient " + patient + " doesn't exist");
+                    return;
+                }
+                for (DataSnapshot snapshot: dataSnapshot.child("schedule").getChildren()) {
+                    schedule.add(snapshot.getValue());
+                }
+                // TODO: how is schedule populated?
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+                displayError("request was cancelled");
+            }
+        });
+    }
 }

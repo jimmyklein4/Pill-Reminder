@@ -10,6 +10,11 @@ import android.view.MenuInflater;
 
 import android.content.Intent;
 
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
 /**
  * Created by ramanjit on 9/5/2015.
  */
@@ -41,6 +46,12 @@ public class DoctorViewAddPatient extends Activity{
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addPatient(final String patientname) {
+        DataHandler data = DataHandler.getInstance();
+        Firebase docref = new Firebase(data.dataURI + "doctors/" + data.getUserID() + "/patients/");
+        docref.child(patientname).setValue(true);
     }
 
 }

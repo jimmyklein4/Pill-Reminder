@@ -52,7 +52,7 @@ public class DoctorPatientActivity extends Activity {
         DataHandler data = DataHandler.getInstance();
         System.out.println("in tryPatientLogin: " + username + ", " + password);
         Firebase patref = new Firebase(data.dataURI + "patients/" + username);
-        patref.addValueEventListener(new ValueEventListener() {
+        patref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue() == null) {
@@ -75,7 +75,7 @@ public class DoctorPatientActivity extends Activity {
         DataHandler data = DataHandler.getInstance();
         System.out.println("in tryDocLogin: " + username + ", " + password);
         Firebase docref = new Firebase(data.dataURI + "doctors/" + username);
-        docref.addValueEventListener(new ValueEventListener() {
+        docref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("tryDocLogin onDataChange");
@@ -84,7 +84,7 @@ public class DoctorPatientActivity extends Activity {
                 } else {
                     System.out.println("logging in as doc " + username);
                     DataHandler.getInstance().setLogin(username, true);
-                    moveToPatientPage();
+                    moveToDoctorPage();
                 }
             }
 
@@ -108,6 +108,7 @@ public class DoctorPatientActivity extends Activity {
     }
 
     public void moveToDoctorPage() {
-        // TODO: move to the doctor pages
+        Intent i = new Intent( DoctorPatientActivity.this, DoctorView.class);
+        startActivity(i);
     }
 }
