@@ -32,7 +32,7 @@ public class patientFragTab extends Fragment {
         arrlist.add("hey");
         arrlist.add("ho");
         ArrayAdapter<String> arradapter = new ArrayAdapter<String>(
-                v,
+                v.getContext()
                 android.R.layout.simple_list_item_1,
                 arrlist
         );
