@@ -7,11 +7,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.content.Intent;
 
+import com.firebase.client.Firebase;
+
 public class DoctorPatientActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Firebase.setAndroidContext(this);
         setContentView(R.layout.doctor_patient_view);
     }
 
