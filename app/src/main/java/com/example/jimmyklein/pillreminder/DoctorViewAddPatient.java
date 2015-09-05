@@ -55,14 +55,15 @@ public class DoctorViewAddPatient extends Activity{
         EditText email = (EditText)findViewById(R.id.editText3);
         EditText name = (EditText)findViewById(R.id.editText4);
 
-        String record  = "email:" + email.getText().toString() + " name:" + name.getText().toString();
-        addPatient(record);
-
+        addPatient(email.getText().toString(), name.getText().toString());
     }
-    public void addPatient(final String patientname) {
+
+    public void addPatient(final String email, final String patientname) {
+        System.out.println("email: " + email + " name: " + patientname);
         DataHandler data = DataHandler.getInstance();
         Firebase docref = new Firebase(data.dataURI + "doctors/" + data.getUserID() + "/patients/");
-        docref.child(patientname).setValue(true);
+        docref.child(data.sanitizeKey(email)).setValue(true);
+        Firebase patref = new Firebase(data.dataURI + "patients/" + data.sanitizeKey(email));
+        patref.child("name").setValue(patientname);
     }
-
 }

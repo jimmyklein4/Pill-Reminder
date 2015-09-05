@@ -17,6 +17,10 @@ public class DataHandler {
     public String getUserID() { return userID; }
     public boolean getIsLoggedIn() { return isLoggedIn; }
     public boolean getIsDoctor() { return isDoctor; }
+    public String sanitizeKey(String key) {
+        String ret = key.substring(0, Math.min(key.length(), 767));
+        return ret.replaceAll("\\.", "_");
+    }
 
     public void setLogin(String uid, boolean isdoc) {
         isLoggedIn = true;
