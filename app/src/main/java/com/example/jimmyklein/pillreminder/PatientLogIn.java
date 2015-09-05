@@ -1,18 +1,22 @@
 package com.example.jimmyklein.pillreminder;
 
+/**
+ * Created by ramanjit on 9/5/2015.
+ */
+
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.content.Intent;
+public class PatientLogIn extends Activity {
 
-public class DoctorPatientActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.doctor_patient_view);
+        setContentView(R.layout.patientlogin);
     }
 
     @Override
@@ -37,10 +41,5 @@ public class DoctorPatientActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void moveToPatientPage(View view) {
-        System.out.println("fdgfdgdf");
-        Intent i = new Intent( DoctorPatientActivity.this, PatientLogIn.class);
-        startActivity(i);
 
-    }
 }
