@@ -49,18 +49,18 @@ public class LoginActivity extends Activity {
         return;
     }
 
-    public void tryPatientLogin(final String username, final String password) {
+    public void tryPatientLogin(final String uid, final String password) {
         DataHandler data = DataHandler.getInstance();
-        System.out.println("in tryPatientLogin: " + username + ", " + password);
-        Firebase patref = new Firebase(data.dataURI + "patients/" + username);
+        System.out.println("in tryPatientLogin: " + uid + ", " + password);
+        Firebase patref = new Firebase(data.dataURI + "patients/" + uid);
         patref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue() == null) {
                     displayError("Username not found");
                 } else {
-                    System.out.println("logging in as pat " + username);
-                    DataHandler.getInstance().setLogin(username, false);
+                    System.out.println("logging in as pat " + uid);
+                    DataHandler.getInstance().setLogin(uid, false);
                     moveToPatientPage();
                 }
             }
@@ -72,19 +72,20 @@ public class LoginActivity extends Activity {
         });
     }
 
-    public void tryDocLogin(final String username, final String password) {
+    public void tryDocLogin(final String email, final String password) {
         DataHandler data = DataHandler.getInstance();
-        System.out.println("in tryDocLogin: " + username + ", " + password);
-        Firebase docref = new Firebase(data.dataURI + "doctors/" + username);
+        System.out.println("in tryDocLogin: " + email + ", " + password);
+        final String uid = data.sanitizeKey(email);
+        Firebase docref = new Firebase(data.dataURI + "doctors/" + uid);
         docref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 System.out.println("tryDocLogin onDataChange");
                 if (dataSnapshot.getValue() == null) {
-                    tryPatientLogin(username, password);
+                    tryPatientLogin(uid, password);
                 } else {
-                    System.out.println("logging in as doc " + username);
-                    DataHandler.getInstance().setLogin(username, true);
+                    System.out.println("logging in as doc " + uid);
+                    DataHandler.getInstance().setLogin(uid, true);
                     moveToDoctorPage();
                 }
             }
@@ -98,7 +99,6 @@ public class LoginActivity extends Activity {
 
     public void login(View view) {
         // TODO: actually get text information here instead of string username
-        String username = "pat1";
         EditText i =  (EditText) findViewById(R.id.editText);
         String result = i.getText().toString();
 
