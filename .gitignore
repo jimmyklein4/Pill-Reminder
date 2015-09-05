@@ -4,5 +4,4 @@
 .DS_Store
 /build/
 /captures/
-/Pill-Reminder.iml
-/app/app.iml
+*.iml
