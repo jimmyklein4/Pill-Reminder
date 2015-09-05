@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Patient Email"
+            android:id="@+id/textView6" />
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@android:drawable/btn_dropdown"
+            android:spinnerMode="dropdown" />
+
+        <TimePicker
+            android:layout_width="wrap_content"
+            android:layout_height="400dp"
+            android:id="@+id/timePicker"
+            android:layout_gravity="bottom"
+            />
+
+        <DatePicker
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:id="@+id/datePicker"
+            />
+    </LinearLayout>>
+    </ScrollView>>
+</LinearLayout>
