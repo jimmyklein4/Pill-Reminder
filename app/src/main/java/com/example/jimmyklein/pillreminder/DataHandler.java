@@ -19,7 +19,7 @@ public class DataHandler {
     public boolean getIsDoctor() { return isDoctor; }
     public String sanitizeKey(String key) {
         String ret = key.substring(0, Math.min(key.length(), 767));
-        return ret.replaceAll("\\.", "_");
+        return ret.replaceAll("\\.", "_").toLowerCase();
     }
 
     public void setLogin(String uid, boolean isdoc) {
