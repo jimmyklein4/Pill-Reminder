@@ -44,6 +44,7 @@ public class DoctorPatientActivity extends Activity {
     }
 
     public void displayError(String error) {
+        // TODO: display actual login error
         return;
     }
 
@@ -104,5 +105,9 @@ public class DoctorPatientActivity extends Activity {
     public void moveToPatientPage() {
         Intent i = new Intent( DoctorPatientActivity.this, PatientLogIn.class);
         startActivity(i);
+    }
+
+    public void moveToDoctorPage() {
+        // TODO: move to the doctor pages
     }
 }
