@@ -1,5 +1,6 @@
 package com.example.jimmyklein.pillreminder;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
@@ -17,7 +18,7 @@ import io.particle.android.sdk.cloud.ParticleCloudException;
 import io.particle.android.sdk.utils.Async;
 import io.particle.android.sdk.utils.Toaster;
 
-public class SparkCore extends ActionBarActivity {
+public class SparkCore extends Activity {
 
     Button buttonTaken;
     Button buttonMissed;

@@ -86,6 +86,7 @@ public class DoctorView extends FragmentActivity {
             startActivity(i);
         }
         if (id == R.id.spark_Core){
+
             Intent intent = new Intent(DoctorView.this, SparkCore.class);
             startActivity(intent);
         }
