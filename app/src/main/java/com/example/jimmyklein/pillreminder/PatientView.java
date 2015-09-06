@@ -32,6 +32,7 @@ public class PatientView extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //alertPebble();
         setContentView(R.layout.patient_view);
         ListView lv = (ListView)findViewById(R.id.listView);
         ArrayAdapter<String> arrad = new ArrayAdapter<>(
@@ -87,7 +88,7 @@ public class PatientView extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
+/*
     public void alertPebble(){
         if(PebbleKit.isWatchConnected(getApplicationContext())){
             data = new PebbleDictionary();
@@ -113,5 +114,5 @@ public class PatientView extends Activity {
             });
         }
     }
-
+*/
 }

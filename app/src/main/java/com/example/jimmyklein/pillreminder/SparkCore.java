@@ -9,7 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import com.getpebble.android.kit.PebbleKit;
+import com.getpebble.android.kit.util.PebbleDictionary;
+
 import java.io.IOException;
+import java.util.UUID;
 
 import io.particle.android.sdk.cloud.SparkCloud;
 import io.particle.android.sdk.cloud.SparkCloudException;
@@ -26,13 +30,17 @@ public class SparkCore extends Activity {
     Button buttonMissed;
     Button buttonOff;
     Button buttonLogin;
-
+    protected final String TAG = "SparkCore";
     String email = "wikkii@msn.com";
     String password = "pillpal"; //will put my password on here but not on git
     String uri = "https://api.particle.io/v1";
     String device = "54ff6f066678574939320667";
     String function = "led";
     String token = "4ce579f5816c2d8983692b86d6bf745a4da421c0";
+
+    private PebbleDictionary data;
+    private final static UUID PEBBLE_APP_UUID = UUID.fromString("1886509e-785a-43d9-906d-a66e820ca16a");
+
 
     public void callLedFunction(String arg) {
         RestAdapter retro = new RestAdapter.Builder()
@@ -72,8 +80,13 @@ public class SparkCore extends Activity {
             @Override
             public void onClick(View v) {
                 //callLedFunction("taken");
-                PatientView obj = new PatientView();
-                obj.alertPebble();
+                //PatientView obj = new PatientView();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        alertPebble();
+                    }
+                }).start();
             }
         });
 
@@ -82,8 +95,8 @@ public class SparkCore extends Activity {
             @Override
             public void onClick(View v) {
                 //callLedFunction("missed");
-                PatientView obj = new PatientView();
-                obj.alertPebble();
+                //PatientView obj = new PatientView();
+                alertPebble();
             }
         });
 
@@ -146,6 +159,34 @@ public class SparkCore extends Activity {
 
     }
 */
+
+    public void alertPebble(){
+        Log.d(TAG, "in alert pebble");
+        if(PebbleKit.isWatchConnected(getApplicationContext())){
+            data = new PebbleDictionary();
+            data.addUint8(1, (byte) 2);
+            PebbleKit.sendDataToPebble(getApplicationContext(), PEBBLE_APP_UUID, data);
+            PebbleKit.registerReceivedAckHandler(getApplicationContext(), new PebbleKit.PebbleAckReceiver(PEBBLE_APP_UUID) {
+                @Override
+                public void receiveAck(Context context, int transactionId) {
+                    Log.i(getLocalClassName(), "Received ack for transaction " + transactionId);
+                }
+            });
+            PebbleKit.registerReceivedNackHandler(getApplicationContext(), new PebbleKit.PebbleNackReceiver(PEBBLE_APP_UUID) {
+                @Override
+                public void receiveNack(Context context, int transactionId) {
+                    if(data!= null){
+                        PebbleKit.sendDataToPebble(getApplicationContext(), PEBBLE_APP_UUID, data);
+                    } else {
+                        data = new PebbleDictionary();
+                        data.addUint8(0, (byte) 42);
+                    }
+                }
+
+            });
+        }
+    }
+
 
 
     @Override
