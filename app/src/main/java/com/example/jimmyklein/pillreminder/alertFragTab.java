@@ -21,5 +21,12 @@ public class alertFragTab extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.alert_fragment, container, false);
         return v;
+        /* TODO
+        * Setup timer to time the dosage taken every day
+        * if the pill bottle doesnt return "taken" value in time, the timer sets off the alarm and sends another request to the pillbottle
+        *   Missed Command sent
+        * The LED turns rfed indicating pill was not taken.
+        * */
+
     }
 }

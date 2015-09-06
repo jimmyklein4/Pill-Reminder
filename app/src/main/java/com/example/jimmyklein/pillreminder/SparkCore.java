@@ -50,7 +50,7 @@ public class SparkCore extends Activity {
         buttonTaken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takenCmd(v.getContext());
+                //takenCmd(v.getContext());
             }
         });
 
@@ -95,7 +95,7 @@ public class SparkCore extends Activity {
         });
 
     }
-
+/*
     public void takenCmd(Context c){
         Async.executeAsync(SparkCloud.get(c), new Async.ApiWork<SparkDevice, Integer>() {
 
@@ -120,7 +120,7 @@ public class SparkCore extends Activity {
         });
 
     }
-
+*/
 
 
     @Override
