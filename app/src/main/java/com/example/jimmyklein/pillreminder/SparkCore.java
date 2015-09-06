@@ -28,7 +28,7 @@ public class SparkCore extends Activity {
     Button buttonLogin;
 
     String email = "wikkii@msn.com";
-    String password = "wikki123"; //will put my password on here but not on git
+    String password = "pillpal"; //will put my password on here but not on git
 
 
 
@@ -41,7 +41,7 @@ public class SparkCore extends Activity {
         buttonLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loginSpark(v.getContext(), email, password);
+                //loginSpark(v.getContext(), email, password);
 
             }
         });
