@@ -54,6 +54,8 @@
             android:layout_height="match_parent"
             android:onClick="login"
             android:id="@+id/button"
+            android:textColor="#FFFFFF"
+            android:background="@color/ColorPrimary"
             android:text="Login" />
     </LinearLayout>
 

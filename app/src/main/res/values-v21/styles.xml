@@ -3,6 +3,7 @@
     <style name="AppTheme" parent="android:Theme.Material.Light">
         <item name="android:colorPrimaryDark">@color/ColorPrimaryDark</item>
         <item name="android:colorPrimary">@color/ColorPrimary</item>
+        <item name="android:colorAccent">@color/ColorPrimary</item>
 
     </style>
     <style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
