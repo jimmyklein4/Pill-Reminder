@@ -71,7 +71,9 @@ public class SparkCore extends Activity {
         buttonTaken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callLedFunction("taken");
+                //callLedFunction("taken");
+                PatientView obj = new PatientView();
+                obj.alertPebble();
             }
         });
 
@@ -79,7 +81,9 @@ public class SparkCore extends Activity {
         buttonMissed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callLedFunction("missed");
+                //callLedFunction("missed");
+                PatientView obj = new PatientView();
+                obj.alertPebble();
             }
         });
 
@@ -87,7 +91,7 @@ public class SparkCore extends Activity {
         buttonOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                callLedFunction("off");
+                //callLedFunction("off");
             }
         });
 
