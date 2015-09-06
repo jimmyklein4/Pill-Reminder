@@ -105,6 +105,8 @@ public class DoctorView extends FragmentActivity {
         String patientString = (patient != null) ? patient.getSelectedItem().toString(): "[null]";
         System.out.println(patientString+" "+descriptionString +" "+time+" "+date);
 
+        Firebase ref = new Firebase(DataHandler.getInstance().dataURI+"small/schedule");
+        ref.child(DataHandler.getInstance().sanitizeKey(time + " " + descriptionString)).setValue(false);
     }
 
 
