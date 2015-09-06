@@ -6,8 +6,10 @@ package com.example.jimmyklein.pillreminder;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
@@ -17,8 +19,15 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
+import com.getpebble.android.kit.PebbleKit;
+import com.getpebble.android.kit.util.PebbleDictionary;
+
+import java.util.UUID;
 
 public class PatientView extends Activity {
+
+    private PebbleDictionary data;
+    private final static UUID PEBBLE_APP_UUID = UUID.fromString("1886509e-785a-43d9-906d-a66e820ca16a");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,4 +87,31 @@ public class PatientView extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void alertPebble(){
+        if(PebbleKit.isWatchConnected(getApplicationContext())){
+            data = new PebbleDictionary();
+            data.addUint8(0, (byte) 42);
+            PebbleKit.sendDataToPebble(getApplicationContext(), PEBBLE_APP_UUID, data);
+            PebbleKit.registerReceivedAckHandler(getApplicationContext(), new PebbleKit.PebbleAckReceiver(PEBBLE_APP_UUID) {
+                @Override
+                public void receiveAck(Context context, int transactionId) {
+                    Log.i(getLocalClassName(), "Received ack for transaction " + transactionId);
+                }
+            });
+            PebbleKit.registerReceivedNackHandler(getApplicationContext(), new PebbleKit.PebbleNackReceiver(PEBBLE_APP_UUID) {
+                @Override
+                public void receiveNack(Context context, int transactionId) {
+                    if(data!= null){
+                        PebbleKit.sendDataToPebble(getApplicationContext(), PEBBLE_APP_UUID, data);
+                    } else {
+                        data = new PebbleDictionary();
+                        data.addUint8(0, (byte) 42);
+                    }
+                }
+
+            });
+        }
+    }
+
 }
