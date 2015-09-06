@@ -49,14 +49,23 @@ public class PatientView extends Activity {
                 if (dataSnapshot.getValue(Boolean.class)) {
                     System.out.println("NEW ALERT THING YUR MISSING YUR MED " + dataSnapshot.getKey());
                     // TODO: add pebble
+                    alertPebble();
+
                 }
             }
+
             @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+            }
+
             @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
             @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+            }
+
             @Override
             public void onCancelled(FirebaseError firebaseError) {}
         });
@@ -88,11 +97,11 @@ public class PatientView extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-/*
+
     public void alertPebble(){
         if(PebbleKit.isWatchConnected(getApplicationContext())){
             data = new PebbleDictionary();
-            data.addUint8(0, (byte) 42);
+            data.addUint8(0, (byte) 2);
             PebbleKit.sendDataToPebble(getApplicationContext(), PEBBLE_APP_UUID, data);
             PebbleKit.registerReceivedAckHandler(getApplicationContext(), new PebbleKit.PebbleAckReceiver(PEBBLE_APP_UUID) {
                 @Override
@@ -114,5 +123,5 @@ public class PatientView extends Activity {
             });
         }
     }
-*/
+
 }
