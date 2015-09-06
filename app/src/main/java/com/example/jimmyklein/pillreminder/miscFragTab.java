@@ -25,8 +25,7 @@ public class miscFragTab extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.add_dosage, container, false);
         Spinner miscpat = (Spinner)v.findViewById(R.id.spinner1);
-        String[] patients = {"sue@some.com", "bob@none.co", "gregg@rad.biz"};
-        ArrayAdapter<String> mparrad = new ArrayAdapter<>(v.getContext(), android.R.layout.simple_spinner_item, patients);
+        ArrayAdapter<String> mparrad = new ArrayAdapter<>(v.getContext(), android.R.layout.simple_spinner_item, DataHandler.getInstance().getPatients());
         //mparrad.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         miscpat.setAdapter(mparrad);
         return v;
