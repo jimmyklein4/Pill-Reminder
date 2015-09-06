@@ -30,4 +30,17 @@ public class alertFragTab extends Fragment {
         lv.setAdapter(arradapter);
         return v;
     }
+
+    public void alertTaken(){
+        SparkCore taken = new SparkCore();
+        taken.callLedFunction("taken");
+    }
+    public void alertMissed(){
+        SparkCore missed = new SparkCore();
+        missed.callLedFunction("missed");
+    }
+    public void alertOff(){
+        SparkCore off = new SparkCore();
+        off.callLedFunction("off");
+    }
 }

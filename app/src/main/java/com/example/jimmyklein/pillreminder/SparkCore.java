@@ -34,7 +34,7 @@ public class SparkCore extends Activity {
     String function = "led";
     String token = "4ce579f5816c2d8983692b86d6bf745a4da421c0";
 
-    private void callLedFunction(String arg) {
+    public void callLedFunction(String arg) {
         RestAdapter retro = new RestAdapter.Builder()
                 .setEndpoint(uri)
                 .build();
