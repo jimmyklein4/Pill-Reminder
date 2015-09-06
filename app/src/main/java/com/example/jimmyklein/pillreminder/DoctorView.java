@@ -1,8 +1,6 @@
 package com.example.jimmyklein.pillreminder;
 
 
-
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -21,8 +19,8 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-import java.util.ArrayList;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -52,6 +50,8 @@ public class DoctorView extends FragmentActivity {
         mTabHost.addTab(
                 mTabHost.newTabSpec("Dosage").setIndicator("Dosage", null),
                 miscFragTab.class, null);
+
+
 
         //Color change for the tabs
         //mTabHost.getTabWidget().getChildAt(0).setBackgroundColor(Color.rgb(22, 240, 214));
@@ -107,9 +107,13 @@ public class DoctorView extends FragmentActivity {
         String patientString = (patient != null) ? patient.getSelectedItem().toString(): "[null]";
         System.out.println(patientString + " " + descriptionString + " " + time + " " + date);
 
-        Firebase ref = new Firebase(DataHandler.getInstance().dataURI+"small/schedule");
-        ref.child(DataHandler.getInstance().sanitizeKey(time + " " + descriptionString)).setValue(false);
+        DataHandler data = DataHandler.getInstance();
+        Firebase ref = new Firebase(data.dataURI + "small/schedule");
+        ref.child(data.sanitizeKey(time + " " + descriptionString)).setValue(false);
         Toast.makeText(DoctorView.this, "dosage added!", Toast.LENGTH_SHORT).show();
+
+        Firebase ref2 = new Firebase(data.dataURI + "small/alerts");
+        ref2.child(data.sanitizeKey(time + " " + descriptionString + " - " + patientString)).setValue(true);
 
         mTabHost.setCurrentTab(0);
     }

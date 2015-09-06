@@ -13,9 +13,10 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import com.firebase.client.ChildEventListener;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
 
 public class PatientView extends Activity {
 
@@ -30,6 +31,25 @@ public class PatientView extends Activity {
                 DataHandler.getInstance().getSchedule()
         );
         lv.setAdapter(arrad);
+
+        Firebase alertref = new Firebase(DataHandler.getInstance().dataURI + "small/alerts");
+        alertref.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                if (dataSnapshot.getValue(Boolean.class)) {
+                    System.out.println("NEW ALERT THING YUR MISSING YUR MED " + dataSnapshot.getKey());
+                    // TODO: add pebble
+                }
+            }
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {}
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {}
+        });
     }
 
     @Override
@@ -49,11 +69,11 @@ public class PatientView extends Activity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
-        }if (id == R.id.doctor_info){
+        }
+        if (id == R.id.doctor_info){
             //start doctor information intent
             Intent i = new Intent(PatientView.this, PatientDoctorInformation.class);
             startActivity(i);
-
         }
 
         return super.onOptionsItemSelected(item);

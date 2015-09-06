@@ -30,9 +30,9 @@ public class SparkCore extends Activity {
     String email = "wikkii@msn.com";
     String password = "pillpal"; //will put my password on here but not on git
     String uri = "https://api.particle.io/v1";
-    String device = "";
-    String function = "";
-    String token = "";
+    String device = "54ff6f066678574939320667";
+    String function = "led";
+    String token = "4ce579f5816c2d8983692b86d6bf745a4da421c0";
 
     private void callLedFunction(String arg) {
         RestAdapter retro = new RestAdapter.Builder()

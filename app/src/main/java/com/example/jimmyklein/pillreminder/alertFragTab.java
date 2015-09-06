@@ -1,11 +1,12 @@
 package com.example.jimmyklein.pillreminder;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
  * Created by Waqas on 9/5/2015.
@@ -20,14 +21,13 @@ public class alertFragTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.alert_fragment, container, false);
+        ListView lv = (ListView) v.findViewById(R.id.listView3);
+        ArrayAdapter<String> arradapter = new ArrayAdapter<String>(
+                v.getContext(),
+                android.R.layout.simple_list_item_1,
+                DataHandler.getInstance().getAlerts()
+        );
+        lv.setAdapter(arradapter);
         return v;
-        /* TODO
-        * Setup timer to time the dosage taken every day
-        * if the pill bottle doesnt return "taken" value in time, the timer sets off the alarm and sends another request to the pillbottle
-        *   Missed Command sent
-        * The LED turns rfed indicating pill was not taken.
-        * */
-
-
     }
 }
