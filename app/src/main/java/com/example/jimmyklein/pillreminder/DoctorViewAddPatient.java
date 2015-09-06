@@ -62,6 +62,9 @@ public class DoctorViewAddPatient extends Activity{
 
         }else {
             addPatient(email.getText().toString(), name.getText().toString());
+            Intent in = new Intent(DoctorViewAddPatient.this, DoctorView.class);
+            startActivity(in);
+            finish();
         }
     }
 
