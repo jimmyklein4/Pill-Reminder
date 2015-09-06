@@ -48,8 +48,7 @@ public class LoginActivity extends Activity {
     }
 
     public void displayError(String error) {
-        // TODO: display actual login error
-        return;
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 
     public void tryPatientLogin(final String uid, final String password) {
@@ -60,8 +59,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null) {
-                    displayError("Username not found");
-                    Toast.makeText(LoginActivity.this, "User not found!", Toast.LENGTH_SHORT).show();
+                    displayError("Username Not Found");
                 } else {
                     System.out.println("logging in as pat " + uid);
                     DataHandler.getInstance().setLogin(uid, false);
@@ -71,7 +69,7 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                displayError("Login request cancelled");
+                displayError("Login Request Cancelled");
             }
         });
     }
@@ -103,7 +101,7 @@ public class LoginActivity extends Activity {
 
     public void login(View view) {
         // TODO: actually get text information here instead of string username
-
+        // NOT NEEDED FOR DEMO
         EditText i =  (EditText) findViewById(R.id.editText);
         String result = i.getText().toString();
         if( !(android.util.Patterns.EMAIL_ADDRESS.matcher(result).matches()) ){
