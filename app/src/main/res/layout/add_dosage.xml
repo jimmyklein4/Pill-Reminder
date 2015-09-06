@@ -17,7 +17,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Patient Email"
-            android:id="@+id/textView6" />
+            android:id="@+id/textView6"
+            android:paddingBottom="10dp" />
         <Spinner
             android:id="@+id/spinner1"
             android:layout_width="match_parent"
@@ -31,7 +32,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Description"
-            android:id="@+id/textView7" />
+            android:id="@+id/textView7"
+            android:paddingTop="10dp" />
 
         <EditText
             android:layout_width="match_parent"
@@ -39,7 +41,7 @@
             android:id="@+id/editText5" />
 
         <TimePicker
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="400dp"
             android:id="@+id/timePicker"
             android:layout_gravity="bottom"
@@ -52,7 +54,7 @@
             />
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Submit"
             android:id="@+id/button2"
