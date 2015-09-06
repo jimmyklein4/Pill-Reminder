@@ -2,6 +2,7 @@ package com.example.jimmyklein.pillreminder;
 
 
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -13,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -22,6 +24,7 @@ import com.firebase.client.ValueEventListener;
 import java.util.ArrayList;
 import java.text.DecimalFormat;
 import java.util.List;
+
 
 /**
  * Created by ramanjit on 9/5/2015.
@@ -98,15 +101,18 @@ public class DoctorView extends FragmentActivity {
         TimePicker dosage_time = (TimePicker) findViewById(R.id.timePicker);
         DatePicker dosage_date = (DatePicker) findViewById(R.id.datePicker);
         EditText description = (EditText) findViewById(R.id.editText5);
-        System.out.println(dosage_time.getCurrentHour()+":"+dosage_time.getCurrentMinute());
+        System.out.println(dosage_time.getCurrentHour() + ":" + dosage_time.getCurrentMinute());
         String time = dosage_time.getCurrentHour()+":"+f.format( dosage_time.getCurrentMinute()).toString();
         String date = (dosage_date.getMonth()+1) + "/" + dosage_date.getDayOfMonth()+"/"+dosage_date.getYear();
         String descriptionString = description.getText().toString();
         String patientString = (patient != null) ? patient.getSelectedItem().toString(): "[null]";
-        System.out.println(patientString+" "+descriptionString +" "+time+" "+date);
+        System.out.println(patientString + " " + descriptionString + " " + time + " " + date);
 
         Firebase ref = new Firebase(DataHandler.getInstance().dataURI+"small/schedule");
         ref.child(DataHandler.getInstance().sanitizeKey(time + " " + descriptionString)).setValue(false);
+        Toast.makeText(DoctorView.this, "dosage added!", Toast.LENGTH_SHORT).show();
+
+        finish();//TODO replace to transistion to other fragmented
     }
 
 
