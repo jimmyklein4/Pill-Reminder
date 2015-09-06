@@ -117,6 +117,7 @@ public class LoginActivity extends Activity {
     public void moveToPatientPage() {
         Intent i = new Intent( LoginActivity.this, PatientView.class);
         startActivity(i);
+
     }
 
     public void moveToDoctorPage() {

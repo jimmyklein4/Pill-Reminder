@@ -112,7 +112,7 @@ public class DoctorView extends FragmentActivity {
         ref.child(DataHandler.getInstance().sanitizeKey(time + " " + descriptionString)).setValue(false);
         Toast.makeText(DoctorView.this, "dosage added!", Toast.LENGTH_SHORT).show();
 
-        finish();//TODO replace to transistion to other fragmented
+        mTabHost.setCurrentTab(0);
     }
 
 
