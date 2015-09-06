@@ -46,8 +46,7 @@ public class DoctorPatientActivity extends Activity {
     }
 
     public void displayError(String error) {
-        // TODO: display actual login error
-        return;
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 
     public void tryPatientLogin(final String username, final String password) {
@@ -99,6 +98,7 @@ public class DoctorPatientActivity extends Activity {
 
     public void login(View view) {
         // TODO: actually get text information here instead of string username
+        // NOT NEEDED FOR DEMO
 
         String username = "pat1";
         EditText i =  (EditText) findViewById(R.id.editText);

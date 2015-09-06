@@ -90,7 +90,7 @@ public class DoctorView extends FragmentActivity {
     }
 
     public void displayError(String error) {
-        // TODO: some error handling
+        Toast.makeText(this, error, Toast.LENGTH_LONG).show();
     }
 
     public void submitDosage (View view){
@@ -128,7 +128,7 @@ public class DoctorView extends FragmentActivity {
                 System.out.println(patref.child("schedule"));
                 List<String> schedule = new ArrayList<> ();
                 if (dataSnapshot.getValue() == null) {
-                    displayError("Patient " + patient + " doesn't exist");
+                    displayError("Patient " + patient + " doesn't exist.");
                     return;
                 }
                 for (DataSnapshot snapshot: dataSnapshot.child("schedule").getChildren()) {
@@ -139,7 +139,7 @@ public class DoctorView extends FragmentActivity {
 
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-                displayError("request was cancelled");
+                displayError("Request was cancelled");
             }
         });
     }
