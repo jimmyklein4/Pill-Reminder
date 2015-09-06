@@ -110,7 +110,7 @@ public class DoctorView extends FragmentActivity {
         DataHandler data = DataHandler.getInstance();
         Firebase ref = new Firebase(data.dataURI + "small/schedule");
         ref.child(data.sanitizeKey(time + " " + descriptionString)).setValue(false);
-        Toast.makeText(DoctorView.this, "dosage added!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(DoctorView.this, "Dosage Added!", Toast.LENGTH_SHORT).show();
 
         Firebase ref2 = new Firebase(data.dataURI + "small/alerts");
         ref2.child(data.sanitizeKey(time + " " + descriptionString + " - " + patientString)).setValue(true);
