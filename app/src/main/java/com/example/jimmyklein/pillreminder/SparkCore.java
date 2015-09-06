@@ -2,7 +2,6 @@ package com.example.jimmyklein.pillreminder;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -14,14 +13,15 @@ import java.io.IOException;
 
 import io.particle.android.sdk.cloud.SparkCloud;
 import io.particle.android.sdk.cloud.SparkCloudException;
-import io.particle.android.sdk.cloud.SparkDevice;
 import io.particle.android.sdk.utils.Async;
 import io.particle.android.sdk.utils.Toaster;
-
-import static io.particle.android.sdk.utils.Py.list;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 public class SparkCore extends Activity {
-
+    ParticleService service;
     Button buttonTaken;
     Button buttonMissed;
     Button buttonOff;
@@ -29,8 +29,29 @@ public class SparkCore extends Activity {
 
     String email = "wikkii@msn.com";
     String password = "pillpal"; //will put my password on here but not on git
+    String uri = "https://api.particle.io/v1";
+    String device = "";
+    String function = "";
+    String token = "";
 
+    private void callLedFunction(String arg) {
+        RestAdapter retro = new RestAdapter.Builder()
+                .setEndpoint(uri)
+                .build();
+        service = retro.create(ParticleService.class);
+        service.callFunction(device, function, arg, token, new Callback<String>() {
+            @Override
+            public void success(String s, Response response) {
+                System.out.println(s);
+            }
 
+            @Override
+            public void failure(RetrofitError error) {
+                System.out.println(error.toString());
+                System.out.println(error.getUrl());
+            }
+        });
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +71,7 @@ public class SparkCore extends Activity {
         buttonTaken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //takenCmd(v.getContext());
+                callLedFunction("taken");
             }
         });
 
@@ -58,7 +79,7 @@ public class SparkCore extends Activity {
         buttonMissed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                callLedFunction("missed");
             }
         });
 
@@ -66,7 +87,7 @@ public class SparkCore extends Activity {
         buttonOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                callLedFunction("off");
             }
         });
 

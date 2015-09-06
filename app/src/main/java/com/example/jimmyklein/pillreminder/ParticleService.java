@@ -11,7 +11,7 @@ import retrofit.http.Query;
  */
 public interface ParticleService {
     @FormUrlEncoded
-    @POST("/{device}/{function}")
+    @POST("/devices/{device}/{function}")
     public void callFunction(
             @Path("device") String device,
             @Path("function") String function,
