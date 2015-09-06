@@ -22,6 +22,7 @@ public class LoginActivity extends Activity {
         Firebase.setAndroidContext(this);
         setContentView(R.layout.login_view);
         //hides the action bar on the top on the login view
+        DataHandler.getInstance(); // initiate data
         getActionBar().hide();
     }
 
@@ -54,16 +55,22 @@ public class LoginActivity extends Activity {
     public void tryPatientLogin(final String uid, final String password) {
         DataHandler data = DataHandler.getInstance();
         System.out.println("in tryPatientLogin: " + uid + ", " + password);
-        Firebase patref = new Firebase(data.dataURI + "patients/" + uid);
+        Firebase patref = new Firebase(data.dataURI + "small/patients");
         patref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.getValue() == null) {
                     displayError("Username Not Found");
                 } else {
-                    System.out.println("logging in as pat " + uid);
-                    DataHandler.getInstance().setLogin(uid, false);
-                    moveToPatientPage();
+                    for(DataSnapshot snap : dataSnapshot.getChildren()) {
+                        if(snap.getValue(String.class).equals(uid.toLowerCase())) {
+                            System.out.println("logging in as pat " + uid);
+                            DataHandler.getInstance().setLogin(uid.toLowerCase(), false);
+                            moveToPatientPage();
+                            return;
+                        }
+                    }
+                    displayError("Username Not Found");
                 }
             }
 
@@ -78,7 +85,7 @@ public class LoginActivity extends Activity {
         DataHandler data = DataHandler.getInstance();
         System.out.println("in tryDocLogin: " + email + ", " + password);
         final String uid = data.sanitizeKey(email);
-        Firebase docref = new Firebase(data.dataURI + "doctors/" + uid);
+        Firebase docref = new Firebase(data.dataURI + "small/doctors");
         docref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -86,9 +93,15 @@ public class LoginActivity extends Activity {
                 if (dataSnapshot.getValue() == null) {
                     tryPatientLogin(uid, password);
                 } else {
-                    System.out.println("logging in as doc " + uid);
-                    DataHandler.getInstance().setLogin(uid, true);
-                    moveToDoctorPage();
+                    for(DataSnapshot snap : dataSnapshot.getChildren()) {
+                        if(snap.getValue(String.class).equals(email.toLowerCase())) {
+                            System.out.println("logging in as doc " + uid);
+                            DataHandler.getInstance().setLogin(email.toLowerCase(), true);
+                            moveToDoctorPage();
+                            return;
+                        }
+                    }
+                    tryPatientLogin(email, password);
                 }
             }
 

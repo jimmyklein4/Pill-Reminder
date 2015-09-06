@@ -33,7 +33,7 @@ public class patientFragTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.patient_fragment, container, false);
-        ListView lv = (ListView) v.findViewById(R.id.listView2);
+        final ListView lv = (ListView) v.findViewById(R.id.listView2);
         ArrayAdapter<String> arradapter = new ArrayAdapter<String>(
                 v.getContext(),
                 android.R.layout.simple_list_item_1,
@@ -43,6 +43,8 @@ public class patientFragTab extends Fragment {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String sel = lv.getItemAtPosition(position).toString().trim();
+                DataHandler.getInstance().setScheduleID(sel);
                 Intent i = new Intent( v.getContext(), PatientView.class);
                 startActivity(i);
             }

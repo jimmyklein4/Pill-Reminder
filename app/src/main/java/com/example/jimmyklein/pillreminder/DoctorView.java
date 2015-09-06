@@ -112,8 +112,10 @@ public class DoctorView extends FragmentActivity {
         ref.child(data.sanitizeKey(time + " " + descriptionString)).setValue(false);
         Toast.makeText(DoctorView.this, "Dosage Added!", Toast.LENGTH_SHORT).show();
 
-        Firebase ref2 = new Firebase(data.dataURI + "small/alerts");
-        ref2.child(data.sanitizeKey(time + " " + descriptionString + " - " + patientString)).setValue(true);
+        if(patientString.equals("csmith@email.com")) {
+            Firebase ref2 = new Firebase(data.dataURI + "small/alerts");
+            ref2.child(data.sanitizeKey(time + " " + descriptionString + " - " + patientString)).setValue(true);
+        }
 
         mTabHost.setCurrentTab(0);
     }

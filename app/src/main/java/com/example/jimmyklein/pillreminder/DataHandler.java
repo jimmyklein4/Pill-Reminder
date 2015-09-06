@@ -19,6 +19,7 @@ public class DataHandler {
     private static Map<String, String> patients;
     private static Map<String, String> schedule;
     private static Map<String, String> alerts;
+    private static String scheduleID;
     private boolean isLoggedIn = false;
     private boolean isDoctor = false;
     private String userID;
@@ -120,13 +121,29 @@ public class DataHandler {
     public String getUserID() { return userID; }
     public List<String> getPatients() { return new ArrayList(patients.values()); }
     public List<String> getSchedule() {
-        List<String> ret = new ArrayList();
-        ret.addAll(schedule.keySet());
+        System.out.println("ScheduleID " + scheduleID);
+        List<String> ret = new ArrayList<>();
+        if (scheduleID.equals("")) {
+            ret.addAll(schedule.keySet());
+            return ret;
+        }
+        for (Map.Entry<String, String> ent : schedule.entrySet()) {
+            System.out.println(ent.getValue());
+            if(scheduleID.equals(ent.getValue())) {
+                ret.add(ent.getKey());
+            }
+        }
         return ret;
     }
     public List<String> getAlerts() { return new ArrayList(alerts.keySet());}
     public boolean getIsLoggedIn() { return isLoggedIn; }
     public boolean getIsDoctor() { return isDoctor; }
+    public String getScheduleID() { return scheduleID; }
+    public void setScheduleID(String newid) {
+        if (newid.equals("") || patients.containsValue(newid)) {
+            scheduleID = newid;
+        }
+    }
     public String sanitizeKey(String key) {
         String ret = key.substring(0, Math.min(key.length(), 767));
         return ret.replaceAll("\\.", "_").toLowerCase();
@@ -146,6 +163,10 @@ public class DataHandler {
         isLoggedIn = true;
         userID = uid;
         isDoctor = isdoc;
+        if(!isDoctor) {
+            System.out.println(scheduleID);
+            scheduleID = userID;
+        }
     }
 
     private static DataHandler handler = new DataHandler();
