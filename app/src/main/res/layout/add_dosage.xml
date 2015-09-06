@@ -60,8 +60,8 @@
             android:text="Submit"
             android:id="@+id/button2"
             android:onClick="submitDosage"
-
-            android:textColor="white"/>
+            android:background="#4ef2d1"
+            android:textColor="#ffffff"/>
     </LinearLayout>>
     </ScrollView>>
 </LinearLayout>
