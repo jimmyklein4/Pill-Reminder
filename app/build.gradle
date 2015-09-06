@@ -33,6 +33,7 @@ dependencies {
     compile 'com.android.support:support-v4:21.0.3'
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.getpebble:pebblekit:3.0.0@aar'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
 }
 
 repositories {
