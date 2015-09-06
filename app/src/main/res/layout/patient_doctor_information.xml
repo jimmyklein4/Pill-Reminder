@@ -5,6 +5,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="299dp"
-        android:text="Doctor: nusdfsdfasd"
+        android:text="Doctor: bill clinton"
         android:id="@+id/textView3" />
 </LinearLayout>

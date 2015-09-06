@@ -21,7 +21,7 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         Firebase.setAndroidContext(this);
         setContentView(R.layout.login_view);
-
+        //hides the action bar on the top on the login view
         getActionBar().hide();
     }
 
