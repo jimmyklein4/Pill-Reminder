@@ -2,7 +2,6 @@ package com.example.jimmyklein.pillreminder;
 
 import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,10 +12,13 @@ import android.widget.Button;
 
 import java.io.IOException;
 
-import io.particle.android.sdk.cloud.ParticleCloud;
-import io.particle.android.sdk.cloud.ParticleCloudException;
+import io.particle.android.sdk.cloud.SparkCloud;
+import io.particle.android.sdk.cloud.SparkCloudException;
+import io.particle.android.sdk.cloud.SparkDevice;
 import io.particle.android.sdk.utils.Async;
 import io.particle.android.sdk.utils.Toaster;
+
+import static io.particle.android.sdk.utils.Py.list;
 
 public class SparkCore extends Activity {
 
@@ -27,8 +29,7 @@ public class SparkCore extends Activity {
 
     String email = "wikkii@msn.com";
     String password = "wikki123"; //will put my password on here but not on git
-    String TOKEN = "";
-    String API_URL = "";
+
 
 
     @Override
@@ -49,7 +50,7 @@ public class SparkCore extends Activity {
         buttonTaken.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                takenCmd(v.getContext());
             }
         });
 
@@ -73,10 +74,10 @@ public class SparkCore extends Activity {
 
     public void loginSpark(Context c, final String email, final String password){
 
-        Async.executeAsync(ParticleCloud.get(c), new Async.ApiWork<ParticleCloud,Void>(){
+        Async.executeAsync(SparkCloud.get(c), new Async.ApiWork<SparkCloud, Void>() {
 
             @Override
-            public Void callApi( ParticleCloud particleCloud) throws ParticleCloudException, IOException {
+            public Void callApi(SparkCloud particleCloud) throws SparkCloudException, IOException {
                 particleCloud.logIn(email, password);
                 return null;
             }
@@ -87,13 +88,40 @@ public class SparkCore extends Activity {
             }
 
             @Override
-            public void onFailure(ParticleCloudException exception) {
+            public void onFailure(SparkCloudException exception) {
                 Log.e("Fail", String.valueOf(exception));
                 Toaster.l(SparkCore.this, "Wrong shit son");
             }
         });
 
     }
+
+    public void takenCmd(Context c){
+        Async.executeAsync(SparkCloud.get(c), new Async.ApiWork<SparkDevice, Integer>() {
+
+            @Override
+            public Integer callApi(SparkDevice sparkDevice) throws SparkCloudException, IOException{
+                try {
+                    return sparkDevice.callFunction("digitalwrite", list("D7", "HIGH"));
+                } catch (SparkDevice.FunctionDoesNotExistException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onSuccess(Integer integer) {
+                Toaster.s(SparkCore.this, "LED ON D7 sucessfullly turned on");
+            }
+
+            @Override
+            public void onFailure(SparkCloudException exception) {
+
+            }
+        });
+
+    }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

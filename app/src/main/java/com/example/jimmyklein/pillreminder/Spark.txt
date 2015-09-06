@@ -1,0 +1,43 @@
+    public void loginSpark(Context c, final String email, final String password){
+
+        Async.executeAsync(ParticleCloud.get(c), new Async.ApiWork<ParticleCloud, Void>() {
+
+            @Override
+            public Void callApi(ParticleCloud particleCloud) throws ParticleCloudException, IOException {
+                particleCloud.logIn(email, password);
+                return null;
+            }
+
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toaster.l(SparkCore.this, "Logged in");
+            }
+
+            @Override
+            public void onFailure(ParticleCloudException exception) {
+                Log.e("Fail", String.valueOf(exception));
+                Toaster.l(SparkCore.this, "Wrong shit son");
+            }
+        });
+
+    }
+
+    public void takenCmd(Context c, String function, String id){
+        Async.executeAsync(ParticleCloud.get(c), new Async.ApiWork<ParticleCloud, Integer>() {
+
+            public Integer callApi(ParticleCloud particleCloud) throws ParticleCloudException, IOException {
+                particleCloud.
+            }
+
+            @Override
+            public void onSuccess(Integer returnValue) {
+                Toaster.s(SparkCore.this, "LED on D7 successfully turned on");
+            }
+
+            @Override
+            public void onFailure(ParticleCloud e) {
+                Log.e("SOME_TAG", e);
+            }
+        });
+
+    }
