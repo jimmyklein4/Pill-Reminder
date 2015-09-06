@@ -4,12 +4,12 @@ import com.firebase.client.ChildEventListener;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Created by shua on 9/5/15.
@@ -17,41 +17,28 @@ import java.util.Map;
 public class DataHandler {
     public static final String dataURI = "https://pillreminder.firebaseio.com/";
     private static Map<String, String> patients;
+    private static Map<String, String> schedule;
     private boolean isLoggedIn = false;
     private boolean isDoctor = false;
     private String userID;
 
     public DataHandler() {
         patients = new HashMap<>();
+        schedule = new TreeMap<>();
         Firebase ref = new Firebase(dataURI + "small/patients");
-        /*ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot sn : dataSnapshot.getChildren()) {
-                    patients.add(sn.getValue(String.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-            }
-        });*/
         ref.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                System.out.println("childadded");
-                patients.put(s, dataSnapshot.getValue(String.class));
+                patients.put(dataSnapshot.getKey(), dataSnapshot.getValue(String.class));
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                System.out.println("childchange");
-                patients.put(s, dataSnapshot.getValue(String.class));
+                patients.put(dataSnapshot.getKey(), dataSnapshot.getValue(String.class));
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                System.out.println("childremoved");
                 patients.remove(dataSnapshot.getKey());
             }
 
@@ -63,10 +50,46 @@ public class DataHandler {
             public void onCancelled(FirebaseError firebaseError) {
             }
         });
+
+        Firebase ref2 = new Firebase(dataURI + "small/schedule");
+        ref2.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                System.out.println("adding " + dataSnapshot.getKey());
+                schedule.put(dataSnapshot.getKey(), dataSnapshot.getValue(String.class));
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                System.out.println("changed " + dataSnapshot.getKey());
+                schedule.put(dataSnapshot.getKey(), dataSnapshot.getValue(String.class));
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                System.out.println("remove " + dataSnapshot.getKey());
+                schedule.remove(dataSnapshot.getKey());
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(FirebaseError firebaseError) {
+
+            }
+        });
     }
 
     public String getUserID() { return userID; }
     public List<String> getPatients() { return new ArrayList(patients.values()); }
+    public List<String> getSchedule() {
+        List<String> ret = new ArrayList();
+        ret.addAll(schedule.keySet());
+        return ret;
+    }
     public boolean getIsLoggedIn() { return isLoggedIn; }
     public boolean getIsDoctor() { return isDoctor; }
     public String sanitizeKey(String key) {

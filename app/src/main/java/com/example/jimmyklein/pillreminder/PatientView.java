@@ -10,14 +10,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 public class PatientView extends Activity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.patient_view);
+        ListView lv = (ListView)findViewById(R.id.listView);
+        ArrayAdapter<String> arrad = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                DataHandler.getInstance().getSchedule()
+        );
+        lv.setAdapter(arrad);
     }
 
     @Override
@@ -46,6 +58,4 @@ public class PatientView extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
-
-
 }
