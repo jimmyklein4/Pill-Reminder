@@ -33,7 +33,6 @@ public class DoctorView extends FragmentActivity {
 
     private FragmentTabHost mTabHost;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

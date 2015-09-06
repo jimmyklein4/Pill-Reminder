@@ -7,11 +7,12 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:label="Pill Pal"
+        android:theme="@style/AppTheme"
+        android:logo="@mipmap/icon_flat">
         <activity
             android:name=".LoginActivity"
-            android:label="@string/app_name" >
+            android:label="Pill Pal" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,23 +21,23 @@
         </activity>
         <activity
             android:name=".PatientView"
-            android:label="@string/app_name" >
+            android:label="Pill Reminder">
         </activity>
         <activity
             android:name=".PatientDoctorInformation"
-            android:label="Doctor Information" >
+            android:label="Doctor Information">
         </activity>
         <activity
             android:name=".DoctorView"
-            android:label="Doctor Page" >
+            android:label="Doctor Page">
         </activity>
         <activity
             android:name=".DoctorViewAddPatient"
-            android:label="Add Patient" >
+            android:label="Add Patient">
         </activity>
         <activity
             android:name=".SparkCore"
-            android:label="Spark Core" >
+            android:label="Spark Core">
         </activity>
     </application>
 
