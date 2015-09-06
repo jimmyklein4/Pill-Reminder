@@ -1,10 +1,12 @@
 package com.example.jimmyklein.pillreminder;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,7 +34,7 @@ public class patientFragTab extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.patient_fragment, container, false);
+        final View v = inflater.inflate(R.layout.patient_fragment, container, false);
         ListView lv = (ListView) v.findViewById(R.id.listView2);
         ArrayAdapter<String> arradapter = new ArrayAdapter<String>(
                 v.getContext(),
@@ -40,6 +42,13 @@ public class patientFragTab extends Fragment {
                 DataHandler.getInstance().getPatients()
         );
         lv.setAdapter(arradapter);
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i = new Intent( v.getContext(), PatientView.class);
+                startActivity(i);
+            }
+        });
         return v;
     }
 
