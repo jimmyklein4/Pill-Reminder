@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="Submit"
             android:id="@+id/button2"
-            android:onClick="submitDosage"/>
+            android:onClick="submitDosage" />
     </LinearLayout>>
     </ScrollView>>
 </LinearLayout>
