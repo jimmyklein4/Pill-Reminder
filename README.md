@@ -1,6 +1,6 @@
 # PillPal
 
-We have all heard of apps to remind people to take pills. But what if there was a bill bottle that would serve as the reminder?
+We have all heard of apps to remind people to take pills. But what if there was a pill bottle that would serve as the reminder?
 
 Pill pal does just that!
 
